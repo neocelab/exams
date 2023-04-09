@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h1 class="my-3 border-bottom pb-2">가상 사용자 번호 목록</h1>
+<table class="table">
+    <thead>
+    <tr class="text-center table-dark">
+        <th>일련 번호</th>
+        <th>시험지 번호</th>
+        <th>제목</th>
+        <th>시험 내용</th>
+        <th>작성일시</th>
+        <th>       </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if test_paper_list %}
+    {% for test_paper in test_paper_list %}
+    <tr class="text-center">
+        <td>1</td>
+        <td>{{ test_paper.id }}</td>
+        <td>{{ test_paper.title }}</td>
+        <td>{{ test_paper.content }}</td>
+        <td>{{ test_paper.create_date }}</td>
+        <td><a href="{% url 'exams:exam_record' test_paper.id %}">시험 결과 등록</a></td>
+
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="5">등록된 시험지가 없습니다.</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

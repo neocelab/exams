@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h1 class="my-3 border-bottom pb-2">시험 점수 목록</h1>
+<table class="table">
+    <thead>
+    <tr class="text-center table-dark">
+        <th>일련 번호</th>
+        <th>시험지 번호</th>
+        <th>시험지 제목</th>
+        <th>가상 수험자 번호</th>
+        <th>수험자</th>
+        <th>점수</th>
+        <th>등록일</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if exam_list %}
+    {% for exam in exam_list %}
+    <tr class="text-center">
+        <td>{{ forloop.counter }}</td>
+        <td>{{ exam.test_paper.id }}</td>
+        <td>{{ exam.test_paper.title }}</td>
+        <td>{{ exam.virtual_examinee_id }}</td>
+        {% if request.user == exam.examinee or request.user.is_superuser or request.user.is_staff %}
+        <td>{{ exam.examinee.username }}</td>
+        {% else %}
+        <td> ... </td>
+        {% endif %}
+        <td>{{ exam.score }}</td>
+        <td>{{ exam.create_date }}</td>
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td colspan="5">등록된 시험 점수 기록이 없습니다.</td>
+    </tr>
+    {% endif %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

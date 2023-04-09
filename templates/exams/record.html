@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+<h1 class="my-3 border-bottom pb-2">시험 결과 등록</h1>
+    <div class="mb-3">
+        <label for="test_paper_id" class="form-label">시험지 번호</label>
+        <input type="text" class="form-control" id="test_paper_id" value="{{ test_paper.id|default_if_none:'' }}" readonly>
+    </div>
+    <div class="mb-3">
+        <label for="test_paper_title" class="form-label">시험지 제목</label>
+        <input type="text" class="form-control" id="test_paper_title" value="{{ test_paper.title|default_if_none:'' }}" readonly>
+    </div>
+<form action="{% url 'exams:exam_record' test_paper.id %}" method="post">
+    {% csrf_token %}
+    <!-- 오류표시 Start -->
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+        {% for field in form %}
+        {% if field.errors %}
+        <div>
+            <strong>{{ field.label }}</strong>
+            {{ field.errors }}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    <div class="mb-3">
+        <label for="virtual_examinee_id" class="form-label">가상 시험자 번호</label>
+        <input type="text" class="form-control" name="virtual_examinee_id" id="virtual_examinee_id" value="{{ form.virtual_examinee_id.value|default_if_none:'' }}">
+    </div>
+    <div class="mb-3">
+        <label for="score" class="form-label">얻은 점 수</label>
+        <input type="text" class="form-control" name="score" id="score" value="{{ form.score.value|default_if_none:'' }}">
+    </div>
+    <button type = "submit" class="btn btn-primary">시험결과등록</button>
+</form>
+</div>
+{% endblock %}
