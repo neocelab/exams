@@ -12,6 +12,7 @@
         <th>수험자</th>
         <th>점수</th>
         <th>등록일</th>
+        <th>변경일</th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +30,7 @@
         {% endif %}
         <td>{{ exam.score }}</td>
         <td>{{ exam.create_date }}</td>
+        <td>{{ exam.modify_date|default_if_none:'' }}</td>
     </tr>
     {% endfor %}
     {% else %}

@@ -5,6 +5,7 @@ class TestPaper(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField(null=True, blank=True)
+    test_date = models.DateField()
     create_date = models.DateTimeField()
     modify_date = models.DateTimeField(null=True, blank=True)
 
